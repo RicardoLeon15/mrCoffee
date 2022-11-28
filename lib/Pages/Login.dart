@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../Principales/reutilizables.dart';
-import '../Principales/CambioContra.dart';
-import '../Principales/Registro.dart';
-import '../Colores/degradado.dart';
+import 'package:mrcoffee/Pages/Cliente/home.dart';
+import '../widgets/reutilizables.dart';
+import '../Pages/Registro.dart';
+import 'CambioContra.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -12,21 +13,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _passwordTextController = TextEditingController();
+  TextEditingController pass = TextEditingController();
   TextEditingController email = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              hexStringToColor("FF9800"),
-              hexStringToColor("FFE0B2"),
-              hexStringToColor("FFE0B2"),
-              //hexStringToColor("F57C00")
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
@@ -42,12 +37,20 @@ class _LoginState extends State<Login> {
                   height: 20,
                 ),
                 reusableTextField("Contraseña", Icons.lock_outline, true,
-                    _passwordTextController),
+                    pass),
                 const SizedBox(
                   height: 5,
                 ),
                 forgetPassword(context),
-                firebaseUIButton(context, "Iniciar Sesion", () {}),
+                firebaseUIButton(context, "Iniciar Sesion", () {
+                  FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: email.text,
+                      password: pass.text).then((value) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                      }).onError((error, stackTrace) {
+                    print("Error");
+                  });
+                }),
                 signUpOption()
               ],
             ),

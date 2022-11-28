@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Principales/reutilizables.dart';
+import '../widgets/reutilizables.dart';
 import '../Colores/degradado.dart';
 
 
@@ -16,6 +16,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -27,12 +28,6 @@ class _ResetPasswordState extends State<ResetPassword> {
       body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                hexStringToColor("FF9800"),
-                hexStringToColor("FFE0B2"),
-                hexStringToColor("FFE0B2"),
-              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(20, 120, 20, 0),

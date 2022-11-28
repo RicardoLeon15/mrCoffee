@@ -7,7 +7,7 @@ Image logoWidget(String imageName) {
     fit: BoxFit.fitWidth,
     width: 240,
     height: 240,
-    color: Colors.black54
+    color: Colors.orange,
   );
 }
 
