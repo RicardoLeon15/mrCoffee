@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: hexStringToColor('#FF9800'),
+        backgroundColor: hexStringToColor('#FF5722'),
         fixedColor: hexStringToColor('#4CAF50'),
         unselectedItemColor: Colors.white,
           iconSize: 26,
