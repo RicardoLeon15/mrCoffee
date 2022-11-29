@@ -1,32 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mrcoffee/Colores/degradado.dart';
-import 'package:mrcoffee/Pages/Cliente/Platillo.dart';
 
-class PlatillosPreferidos extends StatefulWidget {
-  const PlatillosPreferidos({Key? key}) : super(key: key);
+class CafeteriasPreferidas extends StatefulWidget {
+  const CafeteriasPreferidas({Key? key}) : super(key: key);
 
   @override
-  State<PlatillosPreferidos> createState() => _PlatillosPreferidosState();
+  State<CafeteriasPreferidas> createState() => _CafeteriasPreferidasState();
 }
 
-class _PlatillosPreferidosState extends State<PlatillosPreferidos> {
+class _CafeteriasPreferidasState extends State<CafeteriasPreferidas> {
   @override
   Widget build(BuildContext context) {
     return Container(
       child: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("Platillos").snapshots(),
+        stream: FirebaseFirestore.instance.collection("Cafeteria").snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
           return Container(
-            height: 160,
+            height: 220,
             child: ListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               children: snapshot.data!.docs.map((snap){
-                return PlatilloPreferido(
-                  data: snap,
+                return CafeteriaPreferida(
                   urlImg: snap["Imagen"],
-                  platillo: snap["Nombre"],
+                  nombre: snap["Nombre"],
                 );
               }).toList(),
             ),
@@ -37,12 +35,11 @@ class _PlatillosPreferidosState extends State<PlatillosPreferidos> {
   }
 }
 
-class PlatilloPreferido extends StatelessWidget {
+class CafeteriaPreferida extends StatelessWidget {
 
   final String urlImg;
-  final String platillo;
-  final QueryDocumentSnapshot data;
-  const PlatilloPreferido({Key? key, required this.urlImg, required this.platillo, required this.data}) : super(key: key);
+  final String nombre;
+  const CafeteriaPreferida({Key? key, required this.urlImg, required this.nombre}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,39 +48,38 @@ class PlatilloPreferido extends StatelessWidget {
         margin: EdgeInsets.only(right: 10.0),
         padding: EdgeInsets.only(bottom: 5.0),
         decoration: BoxDecoration(
-          color: hexStringToColor("#FFFFFF"),
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 3,
-              offset: Offset(0, 3),
-            ),
-          ]
+            color: hexStringToColor("#FFFFFF"),
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 3,
+                offset: Offset(0, 3),
+              ),
+            ]
         ),
         child: SizedBox(
-          width: 120,
+          width: 160,
           child: Column(
             children: <Widget>[
               ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: SizedBox.fromSize(
-                  size: Size.fromRadius(60.0),
+                  size: Size.fromRadius(80.0),
                   child: Image.network(urlImg, fit: BoxFit.cover),
                 ),
               ),
               SizedBox(height: 5.0,),
-              Text(platillo,style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),),
+              Container(
+                padding: EdgeInsets.only(left: 6,right: 6),
+                child: Text(nombre,style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),),
+              ),
             ],
           ),
         ),
       ),
       onTap: (){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) =>
-          Platillo(data: data)),
-        );
+
       },
     );
   }

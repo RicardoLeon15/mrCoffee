@@ -18,7 +18,7 @@ class _PedidoEnCursoState extends State<PedidoEnCurso> {
         builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
           return ListView(
               shrinkWrap: true,
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               children: snapshot.data!.docs.map((snap) {
                 return FutureBuilder(
                     future: FirebaseFirestore.instance.collection("Cafeteria").doc(snap["Cafeteria"]).get(),
@@ -32,9 +32,11 @@ class _PedidoEnCursoState extends State<PedidoEnCurso> {
                           urlImg: snapshot.data["Imagen"],
                         );
                       } else if (snapshot.hasError) {
-                        return Icon(Icons.error_outline);
+                        return const Icon(Icons.error_outline);
                       } else {
-                        return CircularProgressIndicator();
+                        return const Center(
+                            child:CircularProgressIndicator()
+                        );
                       }
                     });
               }).toList()
@@ -58,9 +60,9 @@ class PedidoActivo extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: hexStringToColor('#FFFFFF'),
-        borderRadius: BorderRadius.all(Radius.circular(20.0),),
+        borderRadius: const BorderRadius.all(Radius.circular(20.0),),
         boxShadow: [
-          BoxShadow(
+          const BoxShadow(
             color: Colors.grey,
             blurRadius: 3,
             offset: Offset(0, 3),
@@ -73,16 +75,16 @@ class PedidoActivo extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.grey.shade300,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(20.0),
                 topLeft: Radius.circular(20.0),
               ),
             ),
-            padding: EdgeInsets.only(top: 10.0,left: 20.0, bottom: 5.0),
-            child: Text("Pedido Activo",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+            padding: const EdgeInsets.only(top: 10.0,left: 20.0, bottom: 5.0),
+            child: const Text("Pedido Activo",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               children: <Widget>[
                 Flexible(
@@ -93,7 +95,7 @@ class PedidoActivo extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: SizedBox.fromSize(
-                          size: Size.fromRadius(48),
+                          size: const Size.fromRadius(48),
                           child: Image.network(urlImg, fit: BoxFit.cover),
                         ),
                       ),
@@ -103,22 +105,22 @@ class PedidoActivo extends StatelessWidget {
                     flex: 2,
                     child: Container(
                       width: double.infinity,
-                      padding: EdgeInsets.only(left: 15.0),
+                      padding: const EdgeInsets.only(left: 15.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text( cafeteria, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                          SizedBox( height: 6),
-                          Text(hora.toDate().toString(), style: TextStyle( fontWeight: FontWeight.normal, fontSize: 12),),
-                          SizedBox( height: 10),
-                          Text(status, style: TextStyle( fontWeight: FontWeight.bold, color: Colors.green, fontSize: 20)),
+                          Text( cafeteria, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                          const SizedBox( height: 6),
+                          Text(hora.toDate().toString(), style: const TextStyle( fontWeight: FontWeight.normal, fontSize: 12),),
+                          const SizedBox( height: 10),
+                          Text(status, style: const TextStyle( fontWeight: FontWeight.bold, color: Colors.green, fontSize: 20)),
                           Container(
                             width: double.infinity,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: <Widget>[
                                 IconButton(
-                                  icon: Icon(Icons.arrow_forward_ios_rounded),
+                                  icon: const Icon(Icons.arrow_forward_ios_rounded),
                                   onPressed: () {
 
                                   },
